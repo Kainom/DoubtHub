@@ -38,20 +38,27 @@ body {
     background-color: var(--bg-top);
 }
 
-.margin-x-8rem {
+.margin-x {
     margin-left: 8rem;
     margin-right: 8rem;
 }
 
-.button-outline {
-    padding: 4px 8px;
-    border: 2px solid var(--brand-primary);
-    border-radius: 6px;
-    color: var(--brand-primary);
-    transition: 0.1s;
+.header-navbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-auto-flow: row;
 }
 
-.button-outline:hover {
-    color: #fff;
-    background-color: var(--brand-primary);
+@media (max-width: 1024px) { /* lg */
+    .margin-x {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
+@media (max-width: 640px) { /* sm */
+    .header-navbar {
+        grid-template-columns: 1fr auto;
+
+    }
 }

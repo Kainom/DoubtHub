@@ -6,16 +6,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brandPrimary: "#BAEBFF",
+        brandLighter: "#BAEBFF",
         brandLight: "#5DBEFB",
         brandDark: "#0B73DA",
-        primaryBran: "#2498F4",
+        brandPrimary: "#2498F4",
         borderColor:"#c0c0c0",      
         borderColorDark:"#c0c0c0",
         stops:"#ffffff",
         middle:"#F7F7F7",
         bottom:"#F0F0F0",
-        TopDark:"#303030",
+        topDark:"#303030",
         middleDark:"#202020",
         bottomDark:"#101010",
         textColor:"#000",
