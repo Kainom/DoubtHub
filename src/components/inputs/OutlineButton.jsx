@@ -13,7 +13,7 @@ export default function OutlineButton(props){
                 hover:bg-brandPrimary hover:text-white
                 transition-colors"
         >
-            Search
+            {props.text}
         </button>
     )
 }
