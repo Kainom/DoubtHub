@@ -1,0 +1,12 @@
+<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+	<!-- Fundo do SVG -->
+	<rect width="200" height="100" fill="#f0f4f8"/>
+	<!-- Texto DoubtHub estilizado -->
+	<text x="50%" y="50%" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#0066cc" text-anchor="middle" dominant-baseline="middle">
+	  DoubtHub
+	</text>
+	<!-- Efeito decorativo: linhas -->
+	<line x1="10" y1="90" x2="50" y2="10" stroke="#0056b3" stroke-width="4"/>
+	<line x1="190" y1="10" x2="150" y2="90" stroke="#0056b3" stroke-width="4"/>
+  </svg>
+  

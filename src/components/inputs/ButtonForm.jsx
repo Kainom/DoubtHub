@@ -6,7 +6,7 @@ export default function ButtonForm({ msg = "Send", wight = "full" }) {
   return (
     <button
       className={`bg-brandPrimary text-brandWhite rounded-md px-5 py-1.5 mt-4
-               w-${wight}`}
+               w-${wight} hover:bg-brandDark transition-all duration-75 `}
     >
       {msg}
     </button>
