@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import InputText from "../components/inputs/inputText/InputText";
 import ButtonForm from '../components/inputs/ButtonForm'

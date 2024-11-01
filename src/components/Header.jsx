@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react"
-import OutlineButton from "./OutlineButton"
+import OutlineButton from "./inputs/OutlineButton"
 import { IoSearchSharp } from "react-icons/io5"
-import { MdMargin } from "react-icons/md"
 
 function UserIcon(props) {
     return (
@@ -15,9 +14,6 @@ function UserIcon(props) {
             h-9 w-9 ml-5 rounded-full
             flex place-content-center
             overflow-hidden"
-
-            style={{
-            }}
         >
             <img src={props.src} alt="" />
         </a>
@@ -48,7 +44,7 @@ function SearchBar() {
                 placeholder="Search..."
             />
 
-            <OutlineButton type="submit" />
+            <OutlineButton text="Search" type="submit" />
         </form>
     )
 }
@@ -67,7 +63,10 @@ function BrandSpan() {
 
 export default function Header(props) {
     return (
-        <header className="bg-top"
+        <header className="bg-top
+            fixed w-full top-0
+            max-sm:static
+        "
             style={{
                 borderBottom: '1px var(--border-color) solid',
             }}
