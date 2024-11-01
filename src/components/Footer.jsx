@@ -6,7 +6,8 @@ export default function Footer(){
         <footer
             className="text-center py-4
                 flex justify-evenly flex-wrap
-                align-middle w-full absolute bottom-0 " 
+
+                align-middle w-full "
             style={{backgroundColor: '#101010'}}
         >
             <p
