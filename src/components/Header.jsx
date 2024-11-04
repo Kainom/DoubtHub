@@ -24,7 +24,7 @@ function SearchBar() {
     return (
         <form
             className="flex justify-center align-middle md:mx-10 max-sm:order-3 max-sm:col-span-2 max-sm:mt-2"
-            action="/search"
+            action="/questions"
         >
             <label
                 htmlFor="search"
@@ -34,7 +34,7 @@ function SearchBar() {
                 <IoSearchSharp size={16} color="white" />
             </label>
             <input
-                name="q"
+                name="search"
                 id="search"
                 className="rounded-r-md px-2 py-1 w-full"
                 style={{
