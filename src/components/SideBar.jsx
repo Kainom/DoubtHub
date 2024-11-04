@@ -25,7 +25,7 @@ export default function SideBar() {
         <nav className="bg-white sidebar">
             <ul
                 className="
-                    grid grid-cols-4 px-1 py-2 min-w-36
+                    sticky top-14 grid grid-cols-4 px-1 py-2 min-w-36
                     max-sm:grid-cols-1 max-sm:grid-flow-row
                     lg:grid-cols-1 lg:grid-flow-row"
             >

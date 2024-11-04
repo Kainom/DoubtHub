@@ -63,7 +63,7 @@ function BrandSpan() {
 
 export default function Header(props) {
     return (
-        <header className="bg-top
+        <header className="bg-top z-10
             fixed w-full top-0
             max-sm:static
         "
