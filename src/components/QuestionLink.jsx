@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
 function AnsweredIcon({ answered }) {
@@ -8,7 +7,7 @@ function AnsweredIcon({ answered }) {
             <span className="center mr-2">
                 {answered ?
                     <img
-                        className="rounded w-6 bg-green-600 inline-block"
+                        className="rounded w-6 bg-brandPrimary inline-block"
                         src="../../answered.svg"
                         style={{ padding: '1.5px' }}
                         alt="Answered" />
@@ -34,7 +33,7 @@ export default function QuestionLink(props) {
                 <a style={{ fontSize: '1.2rem' }} href="questions">
                     <AnsweredIcon answered={props.answered} />
                     <span
-                        className="text-blue-800 hover:text-blue-900 visited:text-purple-900"
+                        className="text-blue-800 hover:underline hover:text-blue-900 visited:text-purple-900"
                     >
                         {props.title}
                     </span>
