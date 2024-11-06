@@ -17,8 +17,9 @@ export const createUser  = async (username,email,password) => {
     console.log(json)
     const response = await api.post("/user/create", json);
     return response.data;
+  // eslint-disable-next-line no-unused-vars
   } catch (error) {
-    throw new Error("Failed to create user" + error);
+    throw new Error("Failed to create user");
   }
 
 }

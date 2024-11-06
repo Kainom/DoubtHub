@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useEffect } from "react";
 import InputText from "../components/inputs/inputText/InputText";
 import ButtonForm from "../components/inputs/ButtonForm";
 import { IoMdPricetags } from "react-icons/io";
@@ -9,7 +9,10 @@ import Icon from "../assets/svg/logo-stackoverflow.svg";
 import Header from "../components/Header";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../utils/api";
+import Loading from "../components/Loading";
+import { showToast } from "../global/toast/ToastCustom";
 export default function SinginIn() {
+  const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -18,8 +21,17 @@ export default function SinginIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, username, password);
-    const response = await createUser({ username, email, password });
-    if (response) navigate("/");
+    setIsLoading(true);
+    try {
+      const response = await createUser({ username, email, password });
+      showToast("success","User has been created with sucess")
+      navigate("/");
+    } catch (err) {
+      console.log("Error: ", err.message);
+      showToast("error", err.message);
+      setIsLoading(false);
+      return;
+    }
   };
 
   const handleChangeName = (e) => {
@@ -32,9 +44,14 @@ export default function SinginIn() {
     setPassword(e.target.value);
   };
 
+  useEffect(() => {
+    console.log("Hello");
+  }, [isLoading]);
+
   return (
     <>
       <Header />
+      <Loading isLoading={isLoading} />
       <main className="flex  justify-center items-start  bg-slate-100 w-full h-screen">
         <div className="max-[640px]:hidden p-10 pt-20 mr-4 my-28 flex  flex-col gap-4 max-h-fit">
           <img
