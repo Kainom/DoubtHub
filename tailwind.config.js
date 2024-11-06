@@ -30,6 +30,9 @@ module.exports = {
       spacing: {
         fineLine: "0.0275rem",
       },
+      border:{
+        
+      }
     },
   },
   plugins: [],
