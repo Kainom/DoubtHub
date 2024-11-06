@@ -30,7 +30,7 @@ export default function SideBar() {
                     lg:grid-cols-1 lg:grid-flow-row"
             >
                 <SideBarListItem routeRef='/'>Home</SideBarListItem>
-                <SideBarListItem routeRef='/search'>Questions</SideBarListItem>
+                <SideBarListItem routeRef='/questions'>Questions</SideBarListItem>
                 <SideBarListItem routeRef='/tags'>Tags</SideBarListItem>
                 <SideBarListItem routeRef='/new-question'>New Question</SideBarListItem>
             </ul>
