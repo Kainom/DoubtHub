@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import Sign from '../pages/SignUp';
 import Layout from '../pages/Layout';
 import Questions from '../pages/Questions';
+import QuestionDiscussion from '../pages/QuestionDiscussion';
 
 const AppRoutes = () => {
     return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
             <Route path='/' element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="/questions" element={<Questions />} />
+                <Route path="/questions/:questionId" element={<QuestionDiscussion />} />
             </Route>
         </Routes>
     )

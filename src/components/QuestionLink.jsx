@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
+import Tag from '../components/Tag'
 
 function AnsweredIcon({ answered }) {
     return (
@@ -23,39 +24,33 @@ function AnsweredIcon({ answered }) {
     )
 }
 
-export default function QuestionLink(props) {
+export default function QuestionLink({question}) {
     return (
         <>
             <li
                 className="w-full py-3"
                 style={{ borderBottom: '1px solid #ccc' }}
             >
-                <a style={{ fontSize: '1.2rem' }} href="questions">
-                    <AnsweredIcon answered={props.answered} />
+                <a 
+                    style={{ fontSize: '1.2rem' }} 
+                    href={`questions/${question.id}`}
+                >
+                    <AnsweredIcon answered={question.answered} />
                     <span
                         className="text-blue-800 hover:underline hover:text-blue-900 visited:text-purple-900"
                     >
-                        {props.title}
+                        {question.title}
                     </span>
                 </a>
 
                 <p style={{ fontSize: "0.8rem" }} className="my-3 text-gray-800">
-                    {props.description}
+                    {question.description}
                 </p>
 
                 <div className="flex justify-between flex-wrap max-sm:flex-col max-sm:gap-2">
                     <div className="inline-flex content-center flex-wrap gap-1">
-                        {props.tags.map((tag) => (
-                            <a
-                                href={`/tags/${tag}`}
-                                className="
-                                    inline-block font-mono font-bold
-                                    text-gray-800 bg-slate-200 rounded p-1
-                                    max-sm:text-end"
-                                style={{ fontSize: '0.8rem' }}
-                            >
-                                {tag}
-                            </a>
+                        {question.tags.map((tag) => (
+                            <Tag tagname={tag}/>
                         ))}
                     </div>
 
@@ -63,7 +58,7 @@ export default function QuestionLink(props) {
                         style={{ fontSize: "0.8rem" }}
                         className="inline-block text-gray-800 my-auto"
                     >
-                        asked {props.timestamp} by {props.user}
+                        asked {question.timestamp} by {question.user}
                     </p>
                 </div>
             </li>

@@ -41,7 +41,7 @@ function SearchBar() {
                     border: '1px var(--border-color) solid'
                 }}
                 type="text"
-                placeholder="Search..."
+                placeholder="Search for questions..."
             />
 
             <OutlineButton text="Search" type="submit" />
