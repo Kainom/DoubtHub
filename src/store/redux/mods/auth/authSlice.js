@@ -7,6 +7,7 @@ const initialState = {
   email: null,
   isLoading: false,
   error: null,
+  authLoading: true,
 };
 
 const authSlice = createSlice({
@@ -46,6 +47,10 @@ const authSlice = createSlice({
       state.error = null;
       state.isLoggingIn = false;
     },
+    authLoading: (state, action) => {
+      state.authLoading = action.payload;
+    },
+
   },
 });
 
