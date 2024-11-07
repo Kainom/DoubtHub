@@ -24,6 +24,8 @@ const AppRoutes = () => {
         <Route path="/questions" element={<Questions/>} />
         <Route path="/questions/:questionId" element={<QuestionDiscussion />} />
       </Route>
+
+      <Route path="*" element={<h1>Not Found</h1>}/>
     </Routes>
   );
 };

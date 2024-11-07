@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import React from "react";
+import { useSearchParams } from 'react-router-dom'
 
 import QuestionLink from "../components/QuestionLink"
-import { useSelector } from "react-redux";
 
 import { questions } from "./sample_data"
 
@@ -11,19 +10,6 @@ export default function Questions() {
     const [params, setParams] = useSearchParams()
     const query = params.get('search')
     var searchResults = []
-
-
-    // const { isLoggedin } = useSelector((state) => state.auth);
-    // const navigate = useNavigate();
-  
-    // useEffect(()=>{
-    //    if(!isLoggedin){
-    //       navigate("/login", { replace: true });
-    //   }
-    // },[navigate,isLoggedin])
-  
-  
-
 
     const searchInTitle = () => {
         searchResults = searchResults.concat(questions.filter(q => {
