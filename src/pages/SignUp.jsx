@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import InputText from "../components/inputs/inputText/InputText";
 import ButtonForm from "../components/inputs/ButtonForm";
