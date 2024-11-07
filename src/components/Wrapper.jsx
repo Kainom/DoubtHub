@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-export default function Wrapper(
-    {children} 
-){
+export default function Wrapper({ children }){
     return (
         <>
             <div

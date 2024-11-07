@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import SideBar from "../components/SideBar";
 import Wrapper from "../components/Wrapper";
 
-export default function Questions() {
+export default function Layout() {
     return (
         <>
             <Header />
