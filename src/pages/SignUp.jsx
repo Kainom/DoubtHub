@@ -1,4 +1,5 @@
-import React from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect } from "react";
 import InputText from "../components/inputs/inputText/InputText";
 import ButtonForm from "../components/inputs/ButtonForm";
 import { IoMdPricetags } from "react-icons/io";
@@ -6,14 +7,54 @@ import { GiDiamondTrophy } from "react-icons/gi";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import Icon from "../assets/svg/logo-stackoverflow.svg";
 import Header from "../components/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { createUser } from "../utils/api";
+import Loading from "../components/Loading";
+import { showToast } from "../global/toast/ToastCustom";
 export default function SinginIn() {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const navigate = useNavigate();
+  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(email, username, password);
+    setIsLoading(true);
+    try {
+      const response = await createUser({ username, email, password });
+      showToast("success","User has been created with sucess")
+      navigate("/");
+    } catch (err) {
+      console.log("Error: ", err.message);
+      showToast("error", err.message);
+      setIsLoading(false);
+      return;
+    }
+  };
+
+  const handleChangeName = (e) => {
+    setUsername(e.target.value);
+  };
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  useEffect(() => {
+    console.log("Hello");
+  }, [isLoading]);
+
   return (
     <>
       <Header />
+      <Loading isLoading={isLoading} />
       <main className="flex  justify-center items-start  bg-slate-100 w-full h-screen">
         <div className="max-[640px]:hidden p-10 pt-20 mr-4 my-28 flex  flex-col gap-4 max-h-fit">
-          <img 
+          <img
             src={Icon}
             alt="Stack Overflow"
             className=" self-start bg-red flex "
@@ -25,7 +66,8 @@ export default function SinginIn() {
             Get unstuck - ask a question!
           </h3>
           <h3 className="flex items-center">
-            <IoMdPricetags  size={24} className="mr-1"/> Save your favorite posts, tags and filters
+            <IoMdPricetags size={24} className="mr-1" /> Save your favorite
+            posts, tags and filters
           </h3>
           <h3 className="flex items-center">
             {" "}
@@ -48,23 +90,36 @@ export default function SinginIn() {
             </p>
           </div>
           <form className="w-full p-2 px-6" action="#">
-            <p className="ml-1.5 mt-4">Nome</p>
-            <InputText placeholder="E-mail" name="email" />
-            <p className="ml-1.5 mt-4">E-mail</p>
-            <InputText placeholder="E-mail" name="email" customType={"email"} />
-            <p className="ml-1.5 mt-4">Password</p>
+            <p className="mt-4">Username</p>
+            <InputText
+              placeholder="Username"
+              value={username}
+              onChange={handleChangeName}
+              name="email"
+            />
+            <p className="mt-4">E-mail</p>
+            <InputText
+              placeholder="E-mail"
+              name="email"
+              value={email}
+              onChange={handleChangeEmail}
+              customType={"email"}
+            />
+            <p className="mt-4">Password</p>
             <InputText
               placeholder="Senha"
               name="password"
+              value={password}
+              onChange={handleChangePassword}
               customType={"password"}
             />
-            <ButtonForm msg={"Sign Up"} />
+            <ButtonForm msg={"Sign Up"} action={handleSubmit} />
           </form>
           <span className="border-t border-slate-400 w-3/4 p-2 absolute bottom-0"></span>
 
           <p className="text-sm text-center mt-10  text-bottomDark">
             Já tem uma conta?
-            <Link to={'/login'}>
+            <Link to={"/login"}>
               <span className="text-brandPrimary"> Login</span>
             </Link>
           </p>
