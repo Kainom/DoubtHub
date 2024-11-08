@@ -19,7 +19,7 @@ const questions = [
     }
 ]
 
-const responses = [
+const answers = [
     {
         id: 1,
         questionId: 1,
@@ -43,4 +43,4 @@ const responses = [
     }
 ]
 
-export { questions, responses }
+export { questions, answers }

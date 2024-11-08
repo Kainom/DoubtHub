@@ -3,6 +3,7 @@
 import React from "react"
 import OutlineButton from "./inputs/OutlineButton"
 import { IoSearchSharp } from "react-icons/io5"
+import { FaUserAstronaut } from "react-icons/fa";
 
 function UserIcon(props) {
     return (
@@ -10,12 +11,13 @@ function UserIcon(props) {
             id="user-icon"
             href=""
             className="
-            bg-slate-100
+            bg-brandDark
             h-9 w-9 ml-5 rounded-full
             flex place-content-center
             overflow-hidden"
         >
-            <img src={props.src} alt="" />
+            <FaUserAstronaut className="h-full size-6 text-brandLighter"/>
+            {/* <img src={props.src} alt="" /> */}
         </a>
     )
 }
@@ -73,7 +75,7 @@ export default function Header(props) {
             <nav className="margin-x py-2 header-navbar">
                 <BrandSpan />
                 <SearchBar />
-                <UserIcon src="../../okeldf.png" />
+                <UserIcon src="" />
             </nav>
         </header>
     )
