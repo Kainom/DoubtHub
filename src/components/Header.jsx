@@ -5,11 +5,11 @@ import OutlineButton from "./inputs/OutlineButton"
 import { IoSearchSharp } from "react-icons/io5"
 import { FaUserAstronaut } from "react-icons/fa";
 
-function UserIcon(props) {
+function UserIcon({link, props}) {
     return (
         <a
             id="user-icon"
-            href=""
+            href={link || "#"}
             className="
             bg-brandDark
             h-9 w-9 ml-5 rounded-full
@@ -67,6 +67,7 @@ export default function Header(props) {
     return (
         <header className="bg-top z-10
                 fixed w-full top-0
+                border-t-4 border-blue-500
             "
             style={{
                 borderBottom: '1px var(--border-color) solid',
@@ -75,7 +76,7 @@ export default function Header(props) {
             <nav className="margin-x py-2 header-navbar">
                 <BrandSpan />
                 <SearchBar />
-                <UserIcon src="" />
+                <UserIcon link="/profile" />
             </nav>
         </header>
     )

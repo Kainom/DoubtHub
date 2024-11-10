@@ -43,4 +43,14 @@ const answers = [
     }
 ]
 
-export { questions, answers }
+const topTags = ["JavaScript", "React", "CSS", "HTML", "Tailwind"];
+
+const topQuestions = [
+  "How to set up React with Vite?",
+  "What is Timsort algorithm?",
+  "How to center an element in Tailwind?",
+  "Using Redux in a React app",
+  "Best practices for React component structure",
+];
+
+export { questions, answers, topTags, topQuestions  }

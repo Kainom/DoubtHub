@@ -7,6 +7,7 @@ import QuestionLink from "../components/QuestionLink"
 import { questions } from "./sample_data"
 
 export default function Questions() {
+    
     const [params, setParams] = useSearchParams()
     const query = params.get('search')
     var searchResults = []
