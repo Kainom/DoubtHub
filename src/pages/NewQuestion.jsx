@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import OutlineButton from "../components/inputs/OutlineButton"
 import { useSelector } from "react-redux";
 
 import { getAllTags } from '../utils/api'
+import { createQuestion } from '../utils/api'
 
 const tagsList = await getAllTags(1)
-console.log(tagsList)
 
 function GoodQuestionInfo() {
     return (
@@ -94,14 +94,27 @@ function FormTagInput({ id, name, value, handler }) {
 }
 
 function NewQuestionForm() {
-    const [title, setTitle] = useState()
-    const [description, setDescription] = useState()
-    const [tried, setTried] = useState()
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [tried, setTried] = useState("")
     const [tags, setTags] = useState()
     const { user } = useSelector(state => state.auth.token);
 
+    const handleSubmit = () => {
+        const question = {
+            answered: false,
+            title: title,
+            description: description,
+            tags: [tags],
+            user: {
+                userId: user.userId
+            }
+        }
+        createQuestion(question)
+    }
+
     return (
-        <form action="" className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <FormCard
                 title={"Title"}
                 description={"Be specific. Imagine you're asking to another person."}
@@ -127,8 +140,7 @@ function NewQuestionForm() {
                     value={description}
                     handler={(e) => {
                         e.preventDefault()
-                        setDescription(description)
-                        console.log(e.target.value)
+                        setDescription(e.target.value)
                     }}
                     id="question-description"
                     name="question-description"
@@ -173,7 +185,10 @@ function NewQuestionForm() {
                 title={"Ask question?"}
                 description={"Review your question and the information you provided. When you're done, confirm your post."}
             >
-                <OutlineButton text="Ask question" type="submit" />
+                <OutlineButton
+                    text="Ask question"
+                    type="submit"
+                />
             </FormCard>
         </form>
     )

@@ -32,7 +32,7 @@ export const allQuestions = async (userId) => {
   }
 };
 
-export const createQuestion = async (userId, question) => {
+export const createQuestion = async (question) => {
   // const {user} = useSelector(state => state.auth.token);
   //   {
   //     "answered": false,
