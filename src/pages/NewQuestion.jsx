@@ -77,6 +77,7 @@ function FormTextArea({ id, name, placeholder }) {
             id={id}
             name={name}
             className="border border-gray-300 rounded-md px-3 py-2 w-full text-sm"
+            rows="4"
             placeholder={placeholder}
             value={value}
             onChange={(e) => handleChange(e)}
@@ -93,7 +94,7 @@ function FormTagInput({ id, name, placeholder }) {
         const keys = [' ', 'Enter', 'Shift', ',', '.', ';', '/', '-']
 
         console.log(e.key, e.target.value)
-        if(keys.includes(e.target.value)) {
+        if (keys.includes(e.target.value)) {
             setValue(value + ", ")
             return
         }
@@ -144,10 +145,9 @@ function NewQuestionForm() {
                 title={"What did you try and what were you expecting?"}
                 description={"Describe what you tried, what it resulted and what were the expected results."}
             >
-                <textarea
+                <FormTextArea
                     id="question-tried"
                     name="question-tried"
-                    className="border border-gray-300 rounded-md px-3 py-2 w-full text-sm"
                     placeholder='"I tried so hard, and got so far!"'
                 />
             </FormCard>
