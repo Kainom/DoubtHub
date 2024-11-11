@@ -63,7 +63,7 @@ export default function SideBar() {
                 <SideBarListItem routeRef='/questions'>Home</SideBarListItem>
                 {/* <SideBarListItem routeRef="/tags">Tags</SideBarListItem> */}
                 <SideBarListItem routeRef="/new-question">New Question</SideBarListItem>
-                <SideBarListItem routeRef="/settings">User Settings</SideBarListItem>
+                <SideBarListItem routeRef="/profile">User Settings</SideBarListItem>
                 <SideBarListButton routeRef="/">Log out</SideBarListButton>
             </ul>
         </nav>

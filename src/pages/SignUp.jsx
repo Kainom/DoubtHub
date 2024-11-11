@@ -24,7 +24,7 @@ export default function SinginIn() {
     setIsLoading(true);
     try {
       const response = await createUser({ username, email, password });
-      showToast("success","User has been created with sucess")
+      showToast("Success","User has been created with sucess")
       navigate("/");
     } catch (err) {
       console.log("Error: ", err.message);
@@ -118,7 +118,7 @@ export default function SinginIn() {
           <span className="border-t border-slate-400 w-3/4 p-2 absolute bottom-0"></span>
 
           <p className="text-sm text-center mt-10  text-bottomDark">
-            Já tem uma conta?
+            Already have an account?
             <Link to={"/login"}>
               <span className="text-brandPrimary"> Login</span>
             </Link>

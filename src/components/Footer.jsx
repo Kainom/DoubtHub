@@ -11,7 +11,7 @@ export default function Footer(){
         >
             <p
                 className="inline-block text-white my-auto py-2"
-            >2023 KOW. All rights reserved.</p>
+            >{new Date().getFullYear()} KOW. All rights reserved.</p>
             <img
                 className="w-24 inline-block self-center"
                 src="../../white-kow.svg" alt="KOW"

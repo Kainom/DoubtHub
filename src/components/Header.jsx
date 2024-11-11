@@ -3,23 +3,28 @@
 import React from "react"
 import OutlineButton from "./inputs/OutlineButton"
 import { IoSearchSharp } from "react-icons/io5"
-import { FaUserAstronaut } from "react-icons/fa";
 
-function UserIcon(props) {
+
+function UserIcon({ link, username }) {
     return (
         <a
             id="user-icon"
-            href=""
+            href={link || "#"}
             className="
-            bg-brandDark
-            h-9 w-9 ml-5 rounded-full
-            flex place-content-center
-            overflow-hidden"
+                bg-brandLighter
+                h-9 w-9 ml-5 rounded-full
+                flex place-content-center
+                overflow-hidden"
         >
-            <FaUserAstronaut className="h-full size-6 text-brandLighter"/>
-            {/* <img src={props.src} alt="" /> */}
+            <div className="rounded-lg shadow-md overflow-hidden">
+                <img
+                    src={`https://api.dicebear.com/9.x/croodles/svg?seed=foolano_di_tall`}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                />
+            </div>
         </a>
-    )
+    );
 }
 
 function SearchBar() {
@@ -51,31 +56,33 @@ function SearchBar() {
     )
 }
 
-function BrandSpan() {
+function BrandSpan({ link }) {
     return (
-        <span
-            id='brand-span'
-            className="brand-font mr-5 my-auto"
+        <a
+            id="brand-span"
+            href={link || "#"}
+            className="brand-font mr-5 my-auto rounded-l hover:bg-gray-100"
             style={{ fontSize: '1.4rem' }}
         >
             DoubtHub
-        </span>
-    )
+        </a>
+    );
 }
 
 export default function Header(props) {
     return (
         <header className="bg-top z-10
                 fixed w-full top-0
+                border-t-4 border-blue-500
             "
             style={{
                 borderBottom: '1px var(--border-color) solid',
             }}
         >
             <nav className="margin-x py-2 header-navbar">
-                <BrandSpan />
+                <BrandSpan link="/questions"/>
                 <SearchBar />
-                <UserIcon src="" />
+                <UserIcon link="/profile" />
             </nav>
         </header>
     )
