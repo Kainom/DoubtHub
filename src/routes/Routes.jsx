@@ -9,6 +9,7 @@ import Questions from '../pages/Questions';
 import QuestionDiscussion from '../pages/QuestionDiscussion';
 import { useSelector } from "react-redux";
 import PrivateRoute from "./PrivateRoutes";
+import NewQuestion from "../pages/NewQuestion";
 
 const AppRoutes = () => {
   const { isLoggedin } = useSelector((state) => state.auth);
@@ -23,6 +24,7 @@ const AppRoutes = () => {
         <Route index element={<Home />} />
         <Route path="/questions" element={<Questions/>} />
         <Route path="/questions/:questionId" element={<QuestionDiscussion />} />
+        <Route path="/new-question" element={<NewQuestion />} />
       </Route>
 
       <Route path="*" element={<h1>Not Found</h1>}/>
