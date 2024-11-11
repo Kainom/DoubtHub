@@ -11,7 +11,7 @@ function UserIcon({ link, username }) {
             id="user-icon"
             href={link || "#"}
             className="
-                bg-brandDark
+                bg-brandLighter
                 h-9 w-9 ml-5 rounded-full
                 flex place-content-center
                 overflow-hidden"
