@@ -9,23 +9,23 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { allQuestions } from "../utils/api";
 export default function Questions() {
-  const {user} = useSelector(state => state.auth.token);
+  const { user } = useSelector(state => state.auth.token);
   const [questionsList, setQuestionsList] = React.useState([]);
   const [params, setParams] = useSearchParams();
 
 
-  useEffect( () => {
+  useEffect(() => {
     async function getQuestions() {
-        const fetchQuestions = await allQuestions(user.userId);
-        setQuestionsList(fetchQuestions);
+      const fetchQuestions = await allQuestions(user.userId);
+      setQuestionsList(fetchQuestions);
     }
     getQuestions();
-  },[])
+  }, [])
 
-            useEffect(() => { 
-                console.log(questionsList);
+  useEffect(() => {
+    console.log(questionsList);
 
-            });
+  });
 
 
   const query = params.get("search");

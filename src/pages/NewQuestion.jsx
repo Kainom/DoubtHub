@@ -3,6 +3,12 @@
 import React, { useState } from "react";
 
 import OutlineButton from "../components/inputs/OutlineButton"
+import { useSelector } from "react-redux";
+
+import { getAllTags } from '../utils/api'
+
+const tagsList = await getAllTags(1)
+console.log(tagsList)
 
 function GoodQuestionInfo() {
     return (
@@ -43,14 +49,7 @@ function FormCard({ children, title, description }) {
     )
 }
 
-function FormInput({ id, name, type, placeholder }) {
-    const [value, setValue] = useState("")
-
-    const handleChange = (e) => {
-        e.preventDefault()
-        setValue(e.target.value)
-    }
-
+function FormInput({ id, name, type, placeholder, value, handler }) {
     return (
         <input
             id={id}
@@ -59,19 +58,12 @@ function FormInput({ id, name, type, placeholder }) {
             type={type}
             placeholder={placeholder}
             value={value}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handler(e)}
         />
     )
 }
 
-function FormTextArea({ id, name, placeholder }) {
-    const [value, setValue] = useState("")
-
-    const handleChange = (e) => {
-        e.preventDefault()
-        setValue(e.target.value)
-    }
-
+function FormTextArea({ id, name, placeholder, value, handler }) {
     return (
         <textarea
             id={id}
@@ -80,42 +72,34 @@ function FormTextArea({ id, name, placeholder }) {
             rows="4"
             placeholder={placeholder}
             value={value}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handler(e)}
         />
     )
 }
 
-function FormTagInput({ id, name, placeholder }) {
-    // not working
-    const [value, setValue] = useState("")
-
-    const handleChange = (e) => {
-        e.preventDefault()
-        const keys = [' ', 'Enter', 'Shift', ',', '.', ';', '/', '-']
-
-        console.log(e.key, e.target.value)
-        if (keys.includes(e.target.value)) {
-            setValue(value + ", ")
-            return
-        }
-
-        setValue(e.target.value)
-    }
-
+function FormTagInput({ id, name, value, handler }) {
     return (
-        <input
+        <select
             id={id}
             name={name}
             className="border border-gray-300 rounded-md px-3 py-2 w-full text-sm"
-            type={"text"}
-            placeholder={placeholder}
             value={value}
-            onChange={(e) => handleChange(e)}
-        />
+            onChange={(e) => handler(e)}
+        >
+            {tagsList.map((tag, index) => (
+                <option key={index} value={tag.tagName}>{tag.tagName}</option>
+            ))}
+        </select>
     )
 }
 
 function NewQuestionForm() {
+    const [title, setTitle] = useState()
+    const [description, setDescription] = useState()
+    const [tried, setTried] = useState()
+    const [tags, setTags] = useState()
+    const { user } = useSelector(state => state.auth.token);
+
     return (
         <form action="" className="flex flex-col gap-4">
             <FormCard
@@ -123,6 +107,11 @@ function NewQuestionForm() {
                 description={"Be specific. Imagine you're asking to another person."}
             >
                 <FormInput
+                    value={title}
+                    handler={(e) => {
+                        e.preventDefault()
+                        setTitle(e.target.value)
+                    }}
                     id="question-title"
                     name="question-title"
                     type="text"
@@ -135,28 +124,44 @@ function NewQuestionForm() {
                 description={"Introduce the problem and explain in details. Maximum of 300 characters."}
             >
                 <FormTextArea
+                    value={description}
+                    handler={(e) => {
+                        e.preventDefault()
+                        setDescription(description)
+                        console.log(e.target.value)
+                    }}
                     id="question-description"
                     name="question-description"
                     placeholder="Describe your problem"
                 />
             </FormCard>
 
-            <FormCard
+            {/* <FormCard
                 title={"What did you try and what were you expecting?"}
                 description={"Describe what you tried, what it resulted and what were the expected results."}
             >
                 <FormTextArea
+                    value={tried}
+                    handler={(e) => {
+                        e.preventDefault()
+                        setTried(e.target.value)
+                    }}
                     id="question-tried"
                     name="question-tried"
                     placeholder='"I tried so hard, and got so far!"'
                 />
-            </FormCard>
+            </FormCard> */}
 
             <FormCard
                 title={"Tags"}
                 description={"Use keywords (tags) to describe what your question is about."}
             >
                 <FormTagInput
+                    value={tags}
+                    handler={(e) => {
+                        e.preventDefault()
+                        setTags(e.target.value)
+                    }}
                     id="question-title"
                     name="question-title"
                     className="border border-gray-300 rounded-md px-3 py-2 w-full text-sm"

@@ -41,6 +41,7 @@ export const createQuestion = async (userId, question) => {
   //    "user": {
   //      "userId": 1
   //    }
+  //     "tags": ["dsjk","cjskl"] // opcional
   //  }
 
   try {
@@ -133,7 +134,7 @@ export const deleteAnswer = async (answerId) => {
 
 export const addTag = async (tag) => {
   // {
-  //   tagName:Pokemon,
+  //   tagName:"Pokemon",
   //   questionId: 9
   // }
   try {
@@ -143,3 +144,26 @@ export const addTag = async (tag) => {
     throw new Error("Failed to add tag");
   }
 };
+
+export const getAllTags = async (userId) => {
+  // {
+  //   "answered": false,
+  //     "title": "The king",
+  //       "description": "Chanell your inner witch",
+  //         "tags": [
+  //           {
+  //             "tagName": "Ork",
+  //             "id": 13
+  //           }
+  //         ],
+  //           "user": {
+  //     "userId": 2
+  //   }
+  // }
+  try {
+    const response = await api.get(`/tag/all/${userId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch all questions" + error);
+  }
+}
