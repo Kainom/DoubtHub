@@ -8,6 +8,7 @@ import Layout from '../pages/Layout';
 import Questions from '../pages/Questions';
 import QuestionDiscussion from '../pages/QuestionDiscussion';
 import Profile from '../pages/Profile';
+import EditProfile from '../pages/EditProfile';
 import { useSelector } from "react-redux";
 import PrivateRoute from "./PrivateRoutes";
 
@@ -22,6 +23,7 @@ const AppRoutes = () => {
       <Route path="/" element={<PrivateRoute element={<Layout/>} isClosed={false} />}>
         <Route index element={<Home />} />
         <Route path="/profile" element={<Profile />}/>
+        <Route path="/editprofile" element ={<EditProfile/>}/>
         <Route path="/questions" element={<Questions />} />
         <Route path="/questions/:questionId" element={<QuestionDiscussion />} />
       </Route>

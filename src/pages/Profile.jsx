@@ -1,37 +1,26 @@
 import React from "react";
-import { FaBirthdayCake, FaWrench } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import { topQuestions } from "./sample_data";
-import { topTags } from "./sample_data";
+import { FaWrench } from "react-icons/fa";
+import { topQuestions, topTags } from "./sample_data";
+import ProfileHeader from "../components/ProfileHeader";
 
 const UserProfile = () => {
+  const username = "foolano_di_tall";
+  const location = "Brazil";
+
   return (
     <div className="w-3xl mx-5 p-6">
-      {/* Profile Header */}
-      <div className="relative flex items-center space-x-4">
-        <div className="w-40 h-40 rounded-lg shadow-md overflow-hidden">
-          <img
-            src="https://api.dicebear.com/9.x/croodles/svg?seed=foolano_di_tall"
-            alt="Profile"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div>
-          <h1 className="text-3xl">foolano_di_tall</h1>
-          <p className="text-gray-500 flex items-center">
-            <FaBirthdayCake className="mr-2" /> Member for 41 days
-          </p>
-          <p className="text-gray-500 flex items-center">
-            <FaLocationDot className="mr-2" /> Brazil
-          </p>
-        </div>
+      {/* Reuse Profile Header */}
 
-        {/* Edit Profile Button */}
-        <button
-          className="absolute flex items-center top-0 right-0 mt-4 mr-4 p-2 border text-gray-500 rounded-md hover:bg-gray-50 border-gray-400 "
+
+      {/* Edit Profile Button */}
+      <div className="flex justify-between items-center mt-4">
+        <ProfileHeader username={username} location={location} />
+        <a
+          href="/EditProfile"
+          className="flex items-center p-2 border text-gray-500 rounded-md hover:bg-gray-100 border-gray-400"
         >
-         <FaWrench className="mr-2 text-gray-700"/> Edit Profile
-        </button>
+          <FaWrench className="mr-2 text-gray-700" /> Edit Profile
+        </a>
       </div>
 
       {/* Profile Info */}
@@ -61,7 +50,10 @@ const UserProfile = () => {
               {topTags.map((tag, index) => (
                 <tr key={index} className="border rounded-lg py-5 px-5">
                   <td className="px-3 py-3">
-                    <a href="#" className="hover:bg-slate-300 inline-flex items-center justify-center font-mono font-bold text-gray-800 bg-slate-200 rounded text-sm px-1 py-1">
+                    <a
+                      href="#"
+                      className="hover:bg-slate-300 inline-flex items-center justify-center font-mono font-bold text-gray-800 bg-slate-200 rounded text-sm px-1 py-1"
+                    >
                       {tag}
                     </a>
                   </td>
