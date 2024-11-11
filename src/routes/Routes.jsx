@@ -10,6 +10,7 @@ import QuestionDiscussion from '../pages/QuestionDiscussion';
 import { useSelector } from "react-redux";
 import PrivateRoute from "./PrivateRoutes";
 import NewQuestion from "../pages/NewQuestion";
+import NotFound from '../components/NotFound';
 
 const AppRoutes = () => {
   const { isLoggedin } = useSelector((state) => state.auth);
@@ -27,7 +28,7 @@ const AppRoutes = () => {
         <Route path="/new-question" element={<NewQuestion />} />
       </Route>
 
-      <Route path="*" element={<h1>Not Found</h1>}/>
+      <Route path="*" element={<PrivateRoute element={<NotFound />}  />}/>
     </Routes>
   );
 };
