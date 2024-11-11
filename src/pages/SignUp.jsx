@@ -95,7 +95,7 @@ export default function SinginIn() {
               placeholder="Username"
               value={username}
               onChange={handleChangeName}
-              name="email"
+              name="username"
             />
             <p className="mt-4">E-mail</p>
             <InputText

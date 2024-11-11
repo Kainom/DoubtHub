@@ -25,6 +25,7 @@ function AnsweredIcon({ answered }) {
 }
 
 export default function QuestionLink({question}) {
+   
     return (
         <>
             <li
@@ -33,7 +34,7 @@ export default function QuestionLink({question}) {
             >
                 <a 
                     style={{ fontSize: '1.2rem' }} 
-                    href={`questions/${question.id}`}
+                    href={`questions/${question.questionId}`}
                 >
                     <AnsweredIcon answered={question.answered} />
                     <span
@@ -50,7 +51,7 @@ export default function QuestionLink({question}) {
                 <div className="flex justify-between flex-wrap max-sm:flex-col max-sm:gap-2">
                     <div className="inline-flex content-center flex-wrap gap-1">
                         {question.tags.map((tag) => (
-                            <Tag tagname={tag}/>
+                            <Tag tagname={tag.tagName}/>
                         ))}
                     </div>
 

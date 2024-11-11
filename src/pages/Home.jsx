@@ -9,20 +9,7 @@ export default function Home() {
     return (
         <>
             <div>
-                <button
-                    onClick={()=>{
-                        fetch('http://localhost:8000/question/?tags=tag1')
-                            .then((response) => {
-                                return response.json()
-                            })
-                            .then((data) => {
-                                console.log(data)
-                            })
-                    }}
-                    className="bg-red-600 text-yellow-200 p-2 m-5"
-                >
-                    Test Fetch
-                </button>
+              
                 <p className="bg-white px-8 py-4">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores natus accusantium nesciunt. Commodi ea quas optio excepturi corporis, libero itaque! Non facere cum est, aliquid distinctio culpa nemo dicta explicabo.
                 </p>
