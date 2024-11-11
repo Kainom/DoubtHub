@@ -9,10 +9,6 @@ const UserProfile = () => {
 
   return (
     <div className="w-3xl mx-5 p-6">
-      {/* Reuse Profile Header */}
-
-
-      {/* Edit Profile Button */}
       <div className="flex justify-between items-center mt-4">
         <ProfileHeader username={username} location={location} />
         <a
@@ -23,7 +19,6 @@ const UserProfile = () => {
         </a>
       </div>
 
-      {/* Profile Info */}
       <div className="mt-6 space-y-4">
         <div>
           <h3 className="px-0 py-2 text-left text-xl font-normal">About</h3>

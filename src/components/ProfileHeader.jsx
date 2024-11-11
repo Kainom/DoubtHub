@@ -7,7 +7,7 @@ function ProfileHeader({ username, location }) {
     <div className="relative flex items-center space-x-4">
       <div className="w-40 h-40 rounded-lg shadow-md overflow-hidden">
         <img
-          src="https://api.dicebear.com/9.x/croodles/svg?seed=foolano_di_tall"
+          src={`https://api.dicebear.com/9.x/croodles/svg?seed=${username}`}
           alt="Profile"
           className="w-full h-full object-cover"
         />
