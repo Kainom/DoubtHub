@@ -38,7 +38,7 @@ function SearchBar() {
             <input
                 name="search"
                 id="search"
-                className="rounded-r-md px-2 py-1 w-full"
+                className="rounded-r-md mr-2 px-2 py-1 w-full"
                 style={{
                     border: '1px var(--border-color) solid'
                 }}

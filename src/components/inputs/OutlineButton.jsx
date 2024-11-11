@@ -7,9 +7,10 @@ export default function OutlineButton(props){
         <button
             type={props.type || 'button'}
             id={props.id}
+            name={props.name}
             className="
                 border-brandPrimary border-2 rounded-md
-                text-brandPrimary ml-2 px-2 py-1
+                text-brandPrimary px-2 py-1
                 hover:bg-brandPrimary hover:text-white
                 transition-colors"
         >
