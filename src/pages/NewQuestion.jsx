@@ -5,9 +5,9 @@ import React, { useEffect, useState } from "react";
 import OutlineButton from "../components/inputs/OutlineButton";
 import { useSelector } from "react-redux";
 
-import { getAllTags } from "../utils/api";
+import { getAllTags, getQuestionById, updateQuestion } from "../utils/api";
 import { createQuestion } from "../utils/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function GoodQuestionInfo() {
@@ -84,7 +84,7 @@ function FormTagInput({ id, name, value, handler, tagsList }) {
       className="border border-gray-300 rounded-md px-3 py-2 w-full text-sm"
       value={value}
       onChange={handler}
-      //   multiple={true}
+    //   multiple={true}
     >
       {tagsList.map((tag) => (
         <option key={tag.id} value={tag}>
@@ -96,6 +96,7 @@ function FormTagInput({ id, name, value, handler, tagsList }) {
 }
 
 function NewQuestionForm() {
+  const { questionId } = useParams()
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -104,6 +105,7 @@ function NewQuestionForm() {
   const [tag, setTag] = useState(tags.length > 0 ? tags[0].id : null);
   const [tagsNova, setNovasTag] = useState([]);
   const { user } = useSelector((state) => state.auth.token);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -113,12 +115,25 @@ function NewQuestionForm() {
     fetchTags();
   }, []);
 
-  
+
   useEffect(() => {
-    if (tags.length >0 ) {
+    if (tags.length > 0) {
       setTag(tags[0].id);
     }
   }, [tags]);
+
+  useEffect(() => {
+    async function getQuestion() {
+      if (questionId) {
+        const question = await getQuestionById(questionId)
+        setTitle(question.title);
+        setDescription(question.description);
+        setTag(question.tags[0].id);
+        setIsEditing(true)
+      }
+    }
+    getQuestion()
+  }, [questionId])
 
   const handleSelectChange = (event) => {
     const selectedId = parseInt(event.target.value); // Get the selected ID
@@ -131,20 +146,30 @@ function NewQuestionForm() {
     let novaTag = null;
     if (tags) novaTag = tags.find((ta) => ta.id == tag); // Find the full tag object
 
-    const question = {
-      answered: false,
-      title: title,
-      description: description,
-      tags: [novaTag],
-      user: {
-        userId: user.userId,
-      },
-    };
-    console.log(tag);
-    console.log(tags);
-    console.log(novaTag);
+    var response
+    if (isEditing) {
+      const question = {
+        questionId: questionId,
+        title: title,
+        description: description,
+        tags: [novaTag]
+      }
+      response = await updateQuestion(question);
+    }
+    else {
+      const question = {
+        answered: false,
+        title: title,
+        description: description,
+        tags: [novaTag],
+        user: {
+          userId: user.userId,
+        },
+      };
 
-    const response = await createQuestion(question);
+      response = await createQuestion(question);
+    }
+
     console.log(response);
     if (response.status === 400) {
       toast.error(response.response.data);
@@ -155,89 +180,101 @@ function NewQuestionForm() {
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-      <FormCard
-        title={"Title"}
-        description={"Be specific. Imagine you're asking to another person."}
-      >
-        <FormInput
-          value={title}
-          handler={(e) => {
-            e.preventDefault();
-            setTitle(e.target.value);
-          }}
-          id="question-title"
-          name="question-title"
-          type="text"
-          placeholder="e.g. How do I center a div in HTML?"
-        />
-      </FormCard>
+    <>
+      {
+        (isEditing) ?
+          <h1 className="text-2xl mb-5">Editing question</h1>
+          :
+          <>
+            <h1 className="text-2xl mb-5">Asking a question</h1>
+            <GoodQuestionInfo />
+          </>
+      }
 
-      <FormCard
-        title={"What is hurting?"}
-        description={
-          "Introduce the problem and explain in details. Maximum of 300 characters."
-        }
-      >
-        <FormTextArea
-          value={description}
-          handler={(e) => {
-            e.preventDefault();
-            setDescription(e.target.value);
-          }}
-          id="question-description"
-          name="question-description"
-          placeholder="Describe your problem"
-        />
-      </FormCard>
-
-      {/* <FormCard
-                title={"What did you try and what were you expecting?"}
-                description={"Describe what you tried, what it resulted and what were the expected results."}
-            >
-                <FormTextArea
-                    value={tried}
-                    handler={(e) => {
-                        e.preventDefault()
-                        setTried(e.target.value)
-                    }}
-                    id="question-tried"
-                    name="question-tried"
-                    placeholder='"I tried so hard, and got so far!"'
-                />
-            </FormCard> */}
-
-      <FormCard
-        haveCard={tags}
-        title={"Tags"}
-        description={
-          "Use keywords (tags) to describe what your question is about."
-        }
-      >
-        <select
-          hidden={!tags || tags.length === 0} // hide if tags is null or empty
-          className="border border-gray-300 rounded-md px-3 py-2 w-full text-sm"
-          value={tag}
-          onChange={handleSelectChange}
-          // multiple={true}
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <FormCard
+          title={"Title"}
+          description={"Be specific. Imagine you're asking to another person."}
         >
-          {(Array.isArray(tags) ? tags : []).map((tag) => (
-            <option key={tag.id} value={tag.id}>
-              {tag.tagName}
-            </option>
-          ))}
-        </select>
-      </FormCard>
+          <FormInput
+            value={title}
+            handler={(e) => {
+              e.preventDefault();
+              setTitle(e.target.value);
+            }}
+            id="question-title"
+            name="question-title"
+            type="text"
+            placeholder="e.g. How do I center a div in HTML?"
+          />
+        </FormCard>
 
-      <FormCard
-        title={"Ask question?"}
-        description={
-          "Review your question and the information you provided. When you're done, confirm your post."
-        }
-      >
-        <OutlineButton text="Ask question" type="submit" />
-      </FormCard>
-    </form>
+        <FormCard
+          title={"What is hurting?"}
+          description={
+            "Introduce the problem and explain in details. Maximum of 300 characters."
+          }
+        >
+          <FormTextArea
+            value={description}
+            handler={(e) => {
+              e.preventDefault();
+              setDescription(e.target.value);
+            }}
+            id="question-description"
+            name="question-description"
+            placeholder="Describe your problem"
+          />
+        </FormCard>
+
+        {/* <FormCard
+            title={"What did you try and what were you expecting?"}
+            description={"Describe what you tried, what it resulted and what were the expected results."}
+        >
+            <FormTextArea
+                value={tried}
+                handler={(e) => {
+                    e.preventDefault()
+                    setTried(e.target.value)
+                }}
+                id="question-tried"
+                name="question-tried"
+                placeholder='"I tried so hard, and got so far!"'
+            />
+        </FormCard> */}
+
+        <FormCard
+          haveCard={tags}
+          title={"Tags"}
+          description={
+            "Use keywords (tags) to describe what your question is about."
+          }
+        >
+          <select
+            hidden={!tags || tags.length === 0} // hide if tags is null or empty
+            className="border border-gray-300 rounded-md px-3 py-2 w-full text-sm"
+            value={tag}
+            onChange={handleSelectChange}
+          // multiple={true}
+          >
+            {(Array.isArray(tags) ? tags : []).map((tag) => (
+              <option key={tag.id} value={tag.id}>
+                {tag.tagName}
+              </option>
+            ))}
+          </select>
+        </FormCard>
+
+        <FormCard
+          title={(isEditing) ? "Update question?" : "Ask question?"}
+          description={
+            "Review your question and the information you provided. When you're done, confirm your post."
+          }
+        >
+          <OutlineButton text={(isEditing) ? "Update question" : "Ask question"} type="submit" />
+        </FormCard>
+      </form>
+    </>
   );
 }
 
@@ -245,10 +282,6 @@ export default function NewQuestion() {
   return (
     <>
       <div className="w-full lg:pl-12 py-8">
-        <h1 className="text-2xl mb-5">Asking a question</h1>
-
-        <GoodQuestionInfo />
-
         <NewQuestionForm />
       </div>
     </>

@@ -29,6 +29,7 @@ const AppRoutes = () => {
         <Route path="/questions" element={<Questions/>} />
         <Route path="/questions/:questionId" element={<QuestionDiscussion />} />
         <Route path="/new-question" element={<NewQuestion />} />
+        <Route path="/edit-question/:questionId" element={<NewQuestion />} />
       </Route>
 
       <Route path="*" element={<PrivateRoute element={<NotFound />}  />}/>
