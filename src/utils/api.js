@@ -59,7 +59,7 @@ export const createQuestion = async (question) => {
     const response = await api.post("/question/", json);
     return response.status;
   } catch (error) {
-    throw  new Error(error);
+    return error;
   }
 };
 
