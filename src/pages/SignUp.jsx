@@ -52,8 +52,8 @@ export default function SinginIn() {
     <>
       <Header />
       <Loading isLoading={isLoading} />
-      <main className="flex  justify-center items-start  bg-slate-100 w-full h-screen">
-        <div className="max-[640px]:hidden p-10 pt-20 mr-4 my-28 flex  flex-col gap-4 max-h-fit">
+      <main className="flex  justify-center items-start max-[430px]:px-10  bg-slate-100 w-full h-screen">
+        <div className="max-[640px]:hidden   p-10 pt-20 mr-4 my-28 flex  flex-col gap-4 max-h-fit">
           <img
             src={Icon}
             alt="Stack Overflow"
@@ -63,21 +63,17 @@ export default function SinginIn() {
           <h3 className="flex items-center">
             {" "}
             <RiQuestionnaireFill size={24} className="mr-1" />
-            Get unstuck - ask a question!
-          </h3>
+            Be free, ask and answer          </h3>
           <h3 className="flex items-center">
-            <IoMdPricetags size={24} className="mr-1" /> Save your favorite
-            posts, tags and filters
+            <IoMdPricetags size={24} className="mr-1" />Save your important questions here
           </h3>
           <h3 className="flex items-center">
             {" "}
             <GiDiamondTrophy size={24} className="mr-1" />
-            Get inspired by the posts you like
+            Learnd and remenber 
           </h3>
           <p className="text-xs mb-4">
-            Collaborate and share knowledge with a private group for FREE.
-            <br />
-            Get Stack Overflow for Teams free for up to 50 users.
+          Collaborate and share knowledge on DoubtHub   <br /> a platform designed for you to post and answer your own questions          
           </p>
         </div>
 
@@ -85,8 +81,7 @@ export default function SinginIn() {
           <div className="w-full px-6 ">
             <h1 className="text-3xl pt-4 pb-2 ">Create your account</h1>
             <p className="text-xs">
-              By clicking “Sign up”, you agree to our terms of service and{" "}
-              <br /> acknowledge you have read our privacy policy.
+            Register and enjoy DoubtHub a platform tailored for you to <br />ask, answer, and engage with questions on your own terms.
             </p>
           </div>
           <form className="w-full p-2 px-6" action="#">
