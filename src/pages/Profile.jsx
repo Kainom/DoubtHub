@@ -1,16 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaWrench } from "react-icons/fa";
 import { topQuestions, topTags } from "./sample_data";
 import ProfileHeader from "../components/ProfileHeader";
+import { getUser } from "../utils/api";
+import { useSelector } from "react-redux";
 
 const UserProfile = () => {
-  const username = "foolano_di_tall";
-  const location = "Brazil";
+  const { token, user } = useSelector(state => state.auth.token);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        setLoading(true);
+        const userData = await getUser(user.userId, token);
+        setProfile(userData);
+        setLoading(false);
+      } catch (e) {
+        setError("Failed to fetch user data: " + e.message);
+        setLoading(false);
+      }
+    };
+    
+    if (token && user) {
+      fetchUser();
+    }
+  }, [token]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="w-3xl mx-5 p-6">
       <div className="flex justify-between items-center mt-4">
-        <ProfileHeader username={username} location={location} />
+        <ProfileHeader
+          username={profile?.username}
+          country={profile?.country}
+        />
         <a
           href="/EditProfile"
           className="flex items-center p-2 border text-gray-500 rounded-md hover:bg-gray-100 border-gray-400"
@@ -22,10 +50,7 @@ const UserProfile = () => {
       <div className="mt-6 space-y-4">
         <div>
           <h3 className="px-0 py-2 text-left text-xl font-normal">About</h3>
-          <p className="text-gray-700">
-            Passionate developer with a love for building web applications and
-            learning new technologies.
-          </p>
+          <p className="text-gray-700">{profile?.about}</p>
         </div>
       </div>
 

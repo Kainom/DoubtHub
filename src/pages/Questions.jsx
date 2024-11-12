@@ -13,20 +13,17 @@ export default function Questions() {
   const [questionsList, setQuestionsList] = React.useState([]);
   const [params, setParams] = useSearchParams();
 
-
-  useEffect( () => {
+  useEffect(() => {
     async function getQuestions() {
-        const fetchQuestions = await allQuestions(user.userId);
-        setQuestionsList(fetchQuestions);
+      const fetchQuestions = await allQuestions(user.userId);
+      setQuestionsList(fetchQuestions);
     }
     getQuestions();
-  },[])
+  }, []);
 
-            useEffect(() => { 
-                console.log(questionsList);
-
-            });
-
+  useEffect(() => {
+    console.log(questionsList);
+  });
 
   const query = params.get("search");
   var searchResults = [];
