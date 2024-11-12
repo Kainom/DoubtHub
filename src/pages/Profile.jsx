@@ -29,8 +29,6 @@ const UserProfile = () => {
         setTopQuestions(fetchTopQuestions || [])
         const fetchTopTags = await getAllTags(user.userId)
         setTopTags(fetchTopTags || [])
-        console.log(fetchTopQuestions)
-        console.log(fetchTopTags)
       } catch (e) {
         setError("Failed to fetch user data: " + e.message);
         setLoading(false);
@@ -70,7 +68,7 @@ const UserProfile = () => {
         </div>
         {/* Top Tags and Top Questions */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-1 gap-4">
-          
+
           {/* Top Questions Table */}
           <div>
             <table className="min-w-full table-auto">
@@ -97,9 +95,13 @@ const UserProfile = () => {
                   ))
                   :
                   <>
-                    <p className="text-gray-600">
-                      Ask a question to see your top questions listed here.
-                    </p>
+                    <tr>
+                      <td>
+                        <p className="text-gray-600">
+                          Ask a question to see your top questions listed here.
+                        </p>
+                      </td>
+                    </tr>
                   </>
                 }
               </tbody>
@@ -131,11 +133,15 @@ const UserProfile = () => {
                   ))
                   :
                   <>
-                    <p className="text-gray-600">
-                      Your tags will be listed here.
-                    </p>
+                    <tr>
+                      <td>
+                        <p className="text-gray-600">
+                          Your tags will be listed here.
+                        </p>
+                      </td>
+                    </tr>
                   </>
-              }
+                }
               </tbody>
             </table>
           </div>
