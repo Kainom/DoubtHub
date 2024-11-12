@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import OutlineButton from "./inputs/OutlineButton";
 import { IoSearchSharp } from "react-icons/io5";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function UserIcon({ link, username }) {
+  const {user} = useSelector(state => state.auth.token);
   return (
     <a
       id="user-icon"
@@ -19,7 +20,7 @@ function UserIcon({ link, username }) {
     >
       <div className="rounded-lg shadow-md overflow-hidden">
         <img
-          src={`https://api.dicebear.com/9.x/croodles/svg?seed=foolano_di_tall`}
+          src={`https://api.dicebear.com/9.x/croodles/svg?seed=${user.username}`}
           alt="Profile"
           className="w-full h-full object-cover"
         />
