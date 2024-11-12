@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import api from "../services/axios";
 export const fetchToken = async (email, password) => {
   try {
@@ -17,7 +18,6 @@ export const createUser = async (username, email, password) => {
     console.log(json);
     const response = await api.post("/user/create", json);
     return response.data;
-    // eslint-disable-next-line no-unused-vars
   } catch (error) {
     throw new Error("Failed to create user");
   }
@@ -31,6 +31,15 @@ export const allQuestions = async (userId) => {
     throw new Error("Failed to fetch questions" + error);
   }
 };
+
+export const getQuestionById = async (questionId) => {
+  try {
+    const response = await api.get(`/question/single/${questionId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch question" + error);
+  }
+}
 
 export const createQuestion = async (question) => {
   // const {user} = useSelector(state => state.auth.token);
