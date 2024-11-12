@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import Tag from '../components/Tag'
+import { MdDelete } from "react-icons/md";
 
 function AnsweredIcon({ answered }) {
     return (
@@ -24,7 +25,8 @@ function AnsweredIcon({ answered }) {
     )
 }
 
-export default function QuestionLink({question}) {
+export default function QuestionLink({question, handleDelete}) {
+    const timestamp = new Date(question.timestamp).toLocaleString('en-US')
    
     return (
         <>
@@ -43,6 +45,12 @@ export default function QuestionLink({question}) {
                         {question.title}
                     </span>
                 </a>
+                <button
+                    className='inline-block float-right'
+                    onClick={() => {handleDelete(question.questionId)}}
+                >
+                    <MdDelete className='size-6 text-red-600' />
+                </button>
 
                 <p style={{ fontSize: "0.8rem" }} className="my-3 text-gray-800">
                     {question.description}
@@ -51,7 +59,7 @@ export default function QuestionLink({question}) {
                 <div className="flex justify-between flex-wrap max-sm:flex-col max-sm:gap-2">
                     <div className="inline-flex content-center flex-wrap gap-1">
                         {question.tags.map((tag) => (
-                            <Tag tagname={tag.tagName}/>
+                            <Tag key={tag.id} tagname={tag.tagName}/>
                         ))}
                     </div>
 
@@ -59,7 +67,7 @@ export default function QuestionLink({question}) {
                         style={{ fontSize: "0.8rem" }}
                         className="inline-block text-gray-800 my-auto"
                     >
-                        asked {question.timestamp} by {question.user}
+                        asked {timestamp}
                     </p>
                 </div>
             </li>

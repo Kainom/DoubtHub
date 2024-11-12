@@ -8,6 +8,7 @@ export default function OutlineButton(props){
             type={props.type || 'button'}
             id={props.id}
             name={props.name}
+            href={props.href}
             className="
                 border-brandPrimary border-2 rounded-md
                 text-brandPrimary px-2 py-1
