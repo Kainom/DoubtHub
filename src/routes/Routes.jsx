@@ -21,7 +21,7 @@ const AppRoutes = () => {
       <Route path="/login" element={!isLoggedin ? <Login /> : <Layout />} />
       <Route path="/register" element={!isLoggedin ? <Sign /> : <Layout />} />
       
-      <Route path="/" element={<PrivateRoute element={<Layout/>} isClosed={false} />}>
+      <Route path="/" element={<PrivateRoute element={<Layout/>} isClosed={true} />}>
         <Route index element={<Home />} />
         <Route path="/profile" element={<Profile />}/>
         <Route path="/editprofile" element ={<EditProfile/>}/>
