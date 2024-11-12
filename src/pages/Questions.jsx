@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { allQuestions, deleteQuestion } from "../utils/api";
 
-
 export default function Questions() {
     const { user } = useSelector(state => state.auth.token);
     const [questionsList, setQuestionsList] = React.useState([]);

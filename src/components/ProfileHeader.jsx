@@ -3,7 +3,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 function ProfileHeader({ username, country }) {
   return (
-    <div className="relative flex items-center space-x-4">
+    <div className="relative flex items-center max-lg:flex-col max-lg:gap-2 space-x-4">
       <div className="w-40 h-40 rounded-lg shadow-md overflow-hidden">
         <img
           src={`https://api.dicebear.com/9.x/croodles/svg?seed=${username}`}

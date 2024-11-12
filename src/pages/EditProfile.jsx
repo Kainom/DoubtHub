@@ -57,8 +57,8 @@ function EditProfile() {
   };
 
   return (
-    <div className="w-3xl p-6 w-full flex items-center flex-col">
-      <div className="mt-6 w-1/2">
+    <div className="w-3xl p-6 w-full max-lg:mx-1 flex items-center flex-col">
+      <div className="mt-6 w-1/2  max-lg:w-full">
         <ProfileHeader username={username} country={country} />
         {/* Edit Profile Form */}
         <div className="mt-6">
@@ -70,7 +70,7 @@ function EditProfile() {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="mt-1 p-2 w-full rounded-md border-gray-500 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                className="mt-1 p-2 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 placeholder="Enter your username"
                 maxLength={20}
               />
@@ -82,7 +82,7 @@ function EditProfile() {
                 type="text"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                className="mt-1 p-2 w-full rounded-md border-gray-500 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                className="mt-1 p-2 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 placeholder="Enter your Country"
                 maxLength={30}
               />
@@ -93,7 +93,7 @@ function EditProfile() {
               <textarea
                 value={about}
                 onChange={(e) => setAbout(e.target.value)}
-                className="mt-1 p-2 w-full rounded-md border-gray-500 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                className="mt-1 p-2 w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 rows="4"
                 placeholder="Tell us something about yourself..."
                 maxLength={200}
