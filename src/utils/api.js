@@ -48,9 +48,9 @@ export const createQuestion = async (question) => {
     const json = JSON.stringify(question);
     console.log(json);
     const response = await api.post("/question/", json);
-    return response.data;
+    return response.status;
   } catch (error) {
-    throw new Error("Failed to create question");
+    throw  new Error(error);
   }
 };
 
