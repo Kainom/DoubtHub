@@ -1,5 +1,4 @@
 import React from "react";
-import { Spinner } from "@material-tailwind/react";
 
 // eslint-disable-next-line react/prop-types
 export default function Loading({ isLoading = true }) {

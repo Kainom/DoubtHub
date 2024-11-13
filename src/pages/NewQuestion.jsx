@@ -5,7 +5,12 @@ import React, { useEffect, useState } from "react";
 import OutlineButton from "../components/inputs/OutlineButton";
 import { useSelector } from "react-redux";
 
-import { getAllTags, getQuestionById, updateQuestion } from "../utils/api";
+import {
+  addTag,
+  getAllTags,
+  getQuestionById,
+  updateQuestion,
+} from "../utils/api";
 import { createQuestion } from "../utils/api";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -84,7 +89,7 @@ function FormTagInput({ id, name, value, handler, tagsList }) {
       className="border border-gray-300 rounded-md px-3 py-2 w-full text-sm"
       value={value}
       onChange={handler}
-    //   multiple={true}
+      //   multiple={true}
     >
       {tagsList.map((tag) => (
         <option key={tag.id} value={tag}>
@@ -96,14 +101,13 @@ function FormTagInput({ id, name, value, handler, tagsList }) {
 }
 
 function NewQuestionForm() {
-  const { questionId } = useParams()
+  const { questionId } = useParams();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tried, setTried] = useState("");
   const [tags, setTags] = useState([]);
-  const [tag, setTag] = useState(tags.length > 0 ? tags[0].id : null);
-  const [tagsNova, setNovasTag] = useState([]);
+  const [tag, setTag] = useState(0);
   const { user } = useSelector((state) => state.auth.token);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -115,48 +119,42 @@ function NewQuestionForm() {
     fetchTags();
   }, []);
 
-
-  useEffect(() => {
-    if (tags.length > 0) {
-      setTag(tags[0].id);
-    }
-  }, [tags]);
-
   useEffect(() => {
     async function getQuestion() {
+      console.log(questionId);
       if (questionId) {
-        const question = await getQuestionById(questionId)
+        const question = await getQuestionById(questionId);
         setTitle(question.title);
         setDescription(question.description);
-        setTag(question.tags[0].id);
-        setIsEditing(true)
+        // setTag(question.tags[0].id);
+        setIsEditing(!isEditing);
       }
     }
-    getQuestion()
-  }, [questionId])
+    getQuestion();
+  }, [questionId]);
 
   const handleSelectChange = (event) => {
-    const selectedId = parseInt(event.target.value); // Get the selected ID
-    const selectedTagObject = tags.find((tag) => tag.id === selectedId); // Find the full tag object
-    setTag(event.target.value); // Update the selected tag ID
+    const value = event.target.value;
+    setTag(value === "" ? null : value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let novaTag = null;
     if (tags) novaTag = tags.find((ta) => ta.id == tag); // Find the full tag object
-
-    var response
+    console.log(novaTag);
+    var response;
     if (isEditing) {
       const question = {
         questionId: questionId,
         title: title,
         description: description,
-        tags: [novaTag]
+      };
+      if (novaTag) {
+        response = await updateQuestion(question);
       }
       response = await updateQuestion(question);
-    }
-    else {
+    } else {
       const question = {
         answered: false,
         title: title,
@@ -173,23 +171,32 @@ function NewQuestionForm() {
     console.log(response);
     if (response.status === 400) {
       toast.error(response.response.data);
-    } else {
+    } else if (!isEditing) {
       toast.success("Question created successfully!");
       navigate("/questions");
+    } else {
+      const tag = {
+        tagName: novaTag.tagName,
+        questionId: parseInt(questionId),
+      };
+      const json = JSON.stringify(tag);
+      console.log(json);
+      await addTag(json);
+      toast.success("Question updated successfully!");
+      navigate(`/questions/${questionId}`);
     }
   };
 
   return (
     <>
-      {
-        (isEditing) ?
-          <h1 className="text-2xl mb-5">Editing question</h1>
-          :
-          <>
-            <h1 className="text-2xl mb-5">Asking a question</h1>
-            <GoodQuestionInfo />
-          </>
-      }
+      {isEditing ? (
+        <h1 className="text-2xl mb-5">Editing question</h1>
+      ) : (
+        <>
+          <h1 className="text-2xl mb-5">Asking a question</h1>
+          <GoodQuestionInfo />
+        </>
+      )}
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <FormCard
@@ -253,10 +260,13 @@ function NewQuestionForm() {
           <select
             hidden={!tags || tags.length === 0} // hide if tags is null or empty
             className="border border-gray-300 rounded-md px-3 py-2 w-full text-sm"
-            value={tag}
+            value={tag || ""}
             onChange={handleSelectChange}
-          // multiple={true}
+            // multiple={true}
           >
+            <option value="" disabled hidden>
+              Select an option
+            </option>
             {(Array.isArray(tags) ? tags : []).map((tag) => (
               <option key={tag.id} value={tag.id}>
                 {tag.tagName}
@@ -266,12 +276,15 @@ function NewQuestionForm() {
         </FormCard>
 
         <FormCard
-          title={(isEditing) ? "Update question?" : "Ask question?"}
+          title={isEditing ? "Update question?" : "Ask question?"}
           description={
             "Review your question and the information you provided. When you're done, confirm your post."
           }
         >
-          <OutlineButton text={(isEditing) ? "Update question" : "Ask question"} type="submit" />
+          <OutlineButton
+            text={isEditing ? "Update question" : "Ask question"}
+            type="submit"
+          />
         </FormCard>
       </form>
     </>

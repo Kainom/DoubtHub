@@ -1,6 +1,7 @@
 import { FaBirthdayCake } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 
+// eslint-disable-next-line react/prop-types
 function ProfileHeader({ username, country }) {
   return (
     <div className="relative flex items-center max-lg:flex-col max-lg:gap-2 space-x-4">

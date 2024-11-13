@@ -14,11 +14,10 @@ export const fetchToken = async (email, password) => {
 
 export const getUser = async (userId, token) => {
   try {
-    
     const response = await api.get(`/user/${userId}`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.data;
   } catch (error) {
@@ -38,7 +37,6 @@ export const updateUser = async (userId, token, updatedData) => {
     throw new Error("Failed to update user: " + error.message);
   }
 };
-
 
 export const createUser = async (username, email, password) => {
   try {
@@ -67,7 +65,7 @@ export const getQuestionById = async (questionId) => {
   } catch (error) {
     throw new Error("Failed to fetch question" + error);
   }
-}
+};
 
 export const createQuestion = async (question) => {
   // const {user} = useSelector(state => state.auth.token);
@@ -98,12 +96,14 @@ export const updateQuestion = async (question) => {
   // "description": "I yes have"
   // }
   try {
+      
     const json = JSON.stringify(question);
     console.log(json);
     const response = await api.put(`/question/`, json);
-    return response.data;
+    return response;
+
   } catch (error) {
-    throw new Error("Failed to update question");
+    return error;
   }
 };
 
@@ -158,7 +158,7 @@ export const updateAnswer = async (answer) => {
   } catch (error) {
     throw new Error("Failed to update answer");
   }
-}
+};
 
 export const deleteAnswer = async (answerId) => {
   try {
@@ -167,7 +167,7 @@ export const deleteAnswer = async (answerId) => {
   } catch (error) {
     throw new Error("Failed to delete answer");
   }
-}
+};
 
 export const addTag = async (tag) => {
   // {
@@ -175,7 +175,7 @@ export const addTag = async (tag) => {
   //   questionId: 9
   // }
   try {
-    const response = await api.post(`/question/tag`, { tag });
+    const response = await api.put(`/question/tag`,  tag );
     return response.data;
   } catch (error) {
     throw new Error("Failed to add tag");
@@ -203,4 +203,25 @@ export const getAllTags = async (userId) => {
   } catch (error) {
     throw new Error("Failed to fetch all questions" + error);
   }
-}
+};
+
+export const createTag = async (userId, tagName) => {
+  // {
+  //   tagName:"React",
+  //   userId: 1
+  // }
+  try {
+    const send = {
+      tagName: tagName,
+      user: {
+        userId: userId,
+      },
+    };
+    const json = JSON.stringify(send);
+    console.log(json);
+    const response = await api.post(`/tag/`, json);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to create tag");
+  }
+};
