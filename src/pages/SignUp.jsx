@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../utils/api";
 import Loading from "../components/Loading";
 import { showToast } from "../global/toast/ToastCustom";
+import { toast } from "react-toastify";
 export default function SinginIn() {
   const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
@@ -28,7 +29,19 @@ export default function SinginIn() {
       navigate("/");
     } catch (err) {
       console.log("Error: ", err.message);
-      showToast("error", err.message);
+      toast.error(
+        "Failed to register",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+      
       setIsLoading(false);
       return;
     }
