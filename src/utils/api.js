@@ -12,6 +12,34 @@ export const fetchToken = async (email, password) => {
   }
 };
 
+export const getUser = async (userId, token) => {
+  try {
+    
+    const response = await api.get(`/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to get user: " + error);
+  }
+};
+
+export const updateUser = async (userId, token, updatedData) => {
+  try {
+    const response = await api.put(`/user/${userId}`, updatedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to update user: " + error.message);
+  }
+};
+
+
 export const createUser = async (username, email, password) => {
   try {
     const json = JSON.stringify(username, email, password);

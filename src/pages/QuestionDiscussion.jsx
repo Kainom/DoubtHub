@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useCallback, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import Tag from '../components/Tag'
 import OutlineButton from "../components/inputs/OutlineButton"
+import { BiSolidMessageEdit } from "react-icons/bi";
 
-import { getAnswers, getQuestionById } from "../utils/api"
+import { createAnswer, getAnswers, getQuestionById } from "../utils/api"
 import { useSelector } from "react-redux"
 import QuestionLink from "../components/QuestionLink"
 import { MdDelete } from "react-icons/md";
@@ -21,9 +22,13 @@ function QuestionDetails({ question }) {
         <>
             <div className="pb-2" style={{ borderBottom: '1px solid #ccc' }}>
                 <h1 className="text-2xl text-gray-700 mb-3">{question.title}</h1>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 mb-5">
                     asked {datetime(question.timestamp)}
                 </p>
+                <Link className="text-brandDark" to={`/edit-question/${question.questionId}`}>
+                    <BiSolidMessageEdit className="size-5 inline-block mr-2"/>
+                    <p className="inline-block text-sm">Edit question</p>
+                </Link>
             </div>
             <div className="pb-5">
                 <p className="my-5">
@@ -77,14 +82,7 @@ function AnswerList({ answersForQuestion, handleDeleteAnswer }) {
     )
 }
 
-function FormTextArea({ id, name, placeholder }) {
-    const [value, setValue] = useState("")
-
-    const handleChange = (e) => {
-        e.preventDefault()
-        setValue(e.target.value)
-    }
-
+function FormTextArea({ id, name, placeholder, value, handler }) {
     return (
         <textarea
             id={id}
@@ -93,14 +91,32 @@ function FormTextArea({ id, name, placeholder }) {
             rows="4"
             placeholder={placeholder}
             value={value}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handler(e)}
         />
     )
 }
 
-function AnswerForm() {
+function AnswerForm({ questionId }) {
+    const [text, setText] = useState("")
+    const { user } = useSelector(state => state.auth.token);
+    const navigate = useNavigate()
+
+    const handlerSubmit = () => {
+        createAnswer({
+            text: text,
+            question: {
+                questionId: questionId
+            },
+            user: {
+                userId: user.userId
+            }
+        })
+
+        navigate(`/questions/${questionId}`)
+    }
+
     return (
-        <form>
+        <form onSubmit={handlerSubmit}>
             <div className="mb-5">
                 <div className="mb-3">
                     <label htmlFor="answer">
@@ -109,12 +125,17 @@ function AnswerForm() {
                         >Answer this question</h3>
                     </label>
                     <FormTextArea
+                        value={text}
+                        handler={(e) => {
+                            e.preventDefault()
+                            setText(e.target.value)
+                        }}
                         id="answer"
                         name="answer"
                         placeholder="e.g. Here's how you can solve it..."
                     />
                 </div>
-                <OutlineButton text="Answer" type="submit" />
+                <OutlineButton text="Answer" type="submit"/>
             </div>
         </form>
     )
@@ -127,7 +148,7 @@ export default function QuestionDiscussion() {
 
     const handleDeleteAnswer = (answerId) => {
         deleteAnswer(answerId)
-        setAnswers(answers.filter(answer => answer.answerId!== answerId))
+        setAnswers(answers.filter(answer => answer.answerId !== answerId))
     }
 
     useEffect(() => {
@@ -150,7 +171,7 @@ export default function QuestionDiscussion() {
             <div className="w-full lg:pl-12 py-8">
                 <QuestionDetails question={question} />
                 <AnswerList answersForQuestion={answers} handleDeleteAnswer={handleDeleteAnswer} />
-                <AnswerForm />
+                <AnswerForm questionId={questionId} />
             </div>
         </>
     )
