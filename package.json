@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "all": "concurrently \"npm run dev\" \"mvn -f ../Doubt_api spring-boot:run\"",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",

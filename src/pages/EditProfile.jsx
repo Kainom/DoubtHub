@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { FaWrench } from "react-icons/fa";
 import ProfileHeader from "../components/ProfileHeader";
