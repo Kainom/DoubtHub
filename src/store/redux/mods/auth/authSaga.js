@@ -1,7 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { loginSuccess,loginFailure,loginRequest} from './authSlice';
 import { fetchToken } from '../../../../utils/api';
-import { showToast } from '../../../../global/toast/ToastCustom';
 import { toast } from 'react-toastify';
 
 function* handleLogin(action) {

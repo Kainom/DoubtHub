@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import{ useEffect, useState } from "react";
 import { FaWrench } from "react-icons/fa";
 // import { topQuestions, topTags } from "./sample_data";
 import ProfileHeader from "../components/ProfileHeader";
@@ -25,9 +25,9 @@ const UserProfile = () => {
         setProfile(userData);
         setLoading(false);
 
-        const fetchTopQuestions = await allQuestions(user.userId)
+        const fetchTopQuestions = await allQuestions(user.userId,token)
         setTopQuestions(fetchTopQuestions || [])
-        const fetchTopTags = await getAllTags(user.userId)
+        const fetchTopTags = await getAllTags(user.userId,token)
         setTopTags(fetchTopTags || [])
       } catch (e) {
         setError("Failed to fetch user data: " + e.message);

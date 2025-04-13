@@ -10,18 +10,18 @@ import { toast } from "react-toastify";
 import { allQuestions, deleteQuestion } from "../utils/api";
 
 export default function Questions() {
-    const { user } = useSelector(state => state.auth.token);
+    const { user,token} = useSelector(state => state.auth.token);
     const [questionsList, setQuestionsList] = React.useState([]);
     const [params, setParams] = useSearchParams();
 
     const handleDelete = (questionId) => {
-        deleteQuestion(questionId)
+        deleteQuestion(questionId,token)
         setQuestionsList(questionsList.filter(q => q.questionId !== questionId))
     }
 
     useEffect(() => {
         async function getQuestions() {
-            const fetchQuestions = await allQuestions(user.userId);
+            const fetchQuestions = await allQuestions(user.userId,token);
             setQuestionsList(fetchQuestions);
         }
         getQuestions();

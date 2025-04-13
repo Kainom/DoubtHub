@@ -108,22 +108,22 @@ function NewQuestionForm() {
   const [tried, setTried] = useState("");
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState(0);
-  const { user } = useSelector((state) => state.auth.token);
+  const { user, token } = useSelector((state) => state.auth.token);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchTags = async () => {
-      const fetchTags = await getAllTags(user.userId);
+      const fetchTags = await getAllTags(user.userId,token);
       setTags(fetchTags);
     };
     fetchTags();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     async function getQuestion() {
       console.log(questionId);
       if (questionId) {
-        const question = await getQuestionById(questionId);
+        const question = await getQuestionById(questionId,token);
         setTitle(question.title);
         setDescription(question.description);
         // setTag(question.tags[0].id);
@@ -150,10 +150,7 @@ function NewQuestionForm() {
         title: title,
         description: description,
       };
-      if (novaTag) {
-        response = await updateQuestion(question);
-      }
-      response = await updateQuestion(question);
+      response = await updateQuestion(question,token);
     } else {
       const question = {
         answered: false,
@@ -165,7 +162,7 @@ function NewQuestionForm() {
         },
       };
 
-      response = await createQuestion(question);
+      response = await createQuestion(question,token);
     }
 
     console.log(response);
@@ -181,7 +178,7 @@ function NewQuestionForm() {
       };
       const json = JSON.stringify(tag);
       console.log(json);
-      await addTag(json);
+      await addTag(json,token);
       toast.success("Question updated successfully!");
       navigate(`/questions/${questionId}`);
     }
@@ -233,22 +230,6 @@ function NewQuestionForm() {
             placeholder="Describe your problem"
           />
         </FormCard>
-
-        {/* <FormCard
-            title={"What did you try and what were you expecting?"}
-            description={"Describe what you tried, what it resulted and what were the expected results."}
-        >
-            <FormTextArea
-                value={tried}
-                handler={(e) => {
-                    e.preventDefault()
-                    setTried(e.target.value)
-                }}
-                id="question-tried"
-                name="question-tried"
-                placeholder='"I tried so hard, and got so far!"'
-            />
-        </FormCard> */}
 
         <FormCard
           haveCard={tags}

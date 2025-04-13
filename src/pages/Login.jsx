@@ -53,7 +53,6 @@ export default function Login() {
               placeholder="E-mail"
               name="email"
               value={email}
-              // setEmail={setEmail}
               onChange={handleChangeEmail}
               isError={failure}
               customType={"email"}
@@ -63,13 +62,11 @@ export default function Login() {
               placeholder="Senha"
               name="password"
               value={password}
-              // setPassword={setPassword}
               onChange={handleChangePassword}
               isError={failure}
               customType={"password"}
             />
             <ButtonForm
-              // msg={"Log in"}
               action={handleLogin}
               disabled={false}
             />
